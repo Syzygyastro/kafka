@@ -90,17 +90,40 @@ async def test_scraper():
     print("\nDone!")
 
 
+def run_e2e_tests():
+    """Run end-to-end tests."""
+    from tests.e2e.test_local import main as run_local_tests
+    return asyncio.run(run_local_tests())
+
+
+def run_full_e2e():
+    """Run full E2E test suite."""
+    from tests.e2e.run_tests import run_tests
+    return asyncio.run(run_tests())
+
+
 def main():
     """Main entry point."""
     if len(sys.argv) > 1:
-        if sys.argv[1] == "test":
+        cmd = sys.argv[1]
+        if cmd == "test":
             asyncio.run(test_scraper())
-        elif sys.argv[1] == "serve":
+        elif cmd == "serve":
             run_server()
+        elif cmd == "e2e":
+            success = run_e2e_tests()
+            sys.exit(0 if success else 1)
+        elif cmd == "e2e-full":
+            success = run_full_e2e()
+            sys.exit(0 if success else 1)
         else:
-            print("Usage: python run.py [test|serve]")
-            print("  test  - Run scraper tests")
-            print("  serve - Start the API server")
+            print("Usage: python run.py [command]")
+            print("")
+            print("Commands:")
+            print("  serve    - Start the API server (default)")
+            print("  test     - Run basic scraper tests")
+            print("  e2e      - Run E2E component tests (no network required)")
+            print("  e2e-full - Run full E2E test suite (requires network)")
     else:
         run_server()
 
