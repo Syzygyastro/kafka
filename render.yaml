@@ -1,0 +1,21 @@
+# Render.com deployment
+# Free tier: 750 hours/month, auto-sleep after 15 min inactivity
+
+services:
+  - type: web
+    name: web-scraper-bot
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      playwright install chromium --with-deps
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: DEBUG
+        value: "false"
+      - key: LOG_LEVEL
+        value: "INFO"
+    healthCheckPath: /api/v1/health
