@@ -12,9 +12,8 @@ aiofiles==23.2.1
 # Headless browser
 playwright==1.41.2
 
-# Proxy and rotation
+# User agent rotation
 fake-useragent==1.4.0
-python-rotating-proxies==0.1.1
 
 # Captcha solving
 2captcha-python==1.2.7
