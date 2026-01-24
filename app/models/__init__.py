@@ -8,6 +8,13 @@ from .responses import (
     HealthResponse,
     ScraperStats,
 )
+from .arbitrage import (
+    MarketData,
+    KalshiMarket,
+    PolymarketMarket,
+    ArbitrageOpportunity,
+    ArbitrageResponse,
+)
 
 __all__ = [
     "ScrapeRequest",
@@ -17,4 +24,9 @@ __all__ = [
     "ProxyStatus",
     "HealthResponse",
     "ScraperStats",
+    "MarketData",
+    "KalshiMarket",
+    "PolymarketMarket",
+    "ArbitrageOpportunity",
+    "ArbitrageResponse",
 ]
