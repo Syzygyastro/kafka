@@ -16,7 +16,7 @@ playwright==1.41.2
 fake-useragent==1.4.0
 
 # Captcha solving
-2captcha-python==1.2.7
+2captcha-python==2.0.2
 anticaptchaofficial==1.0.54
 
 # HTML parsing
