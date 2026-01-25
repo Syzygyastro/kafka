@@ -22,7 +22,7 @@ from app.models.arbitrage import (
 class ArbitrageService:
     """Service for detecting arbitrage opportunities between Kalshi and Polymarket."""
 
-    KALSHI_BASE_URL = "https://api.elections.kalshi.com/trade-api/v2"
+    KALSHI_BASE_URL = "https://trading-api.kalshi.com/trade-api/v2"
     POLYMARKET_GAMMA_URL = "https://gamma-api.polymarket.com"
 
     # Common stopwords to ignore when indexing
@@ -109,46 +109,9 @@ class ArbitrageService:
             logger.info(f"Fetched {len(markets)} Kalshi markets from API")
 
         except Exception as e:
-            logger.warning(f"Error fetching Kalshi markets from API: {e}")
-            logger.info("Using sample Kalshi markets for demonstration")
-            markets = self._get_sample_kalshi_markets()
+            logger.error(f"Error fetching Kalshi markets: {e}")
 
         self._kalshi_markets = markets
-        return markets
-
-    def _get_sample_kalshi_markets(self) -> list[KalshiMarket]:
-        """Get sample Kalshi markets for demonstration when API is unavailable."""
-        sample_data = [
-            {"ticker": "TRUMP-2028", "title": "Will Donald Trump win the 2028 Presidential Election?", "yes_price": 0.35, "no_price": 0.65},
-            {"ticker": "BTC-100K-2026", "title": "Will Bitcoin reach $100,000 in 2026?", "yes_price": 0.62, "no_price": 0.38},
-            {"ticker": "FED-RATE-CUT-MAR", "title": "Will the Fed cut interest rates in March 2026?", "yes_price": 0.45, "no_price": 0.55},
-            {"ticker": "SUPERBOWL-CHIEFS", "title": "Will the Kansas City Chiefs win Super Bowl 2026?", "yes_price": 0.18, "no_price": 0.82},
-            {"ticker": "RECESSION-2026", "title": "Will there be a US recession in 2026?", "yes_price": 0.28, "no_price": 0.72},
-            {"ticker": "ETH-10K-2026", "title": "Will Ethereum reach $10,000 in 2026?", "yes_price": 0.25, "no_price": 0.75},
-            {"ticker": "INFLATION-3PCT", "title": "Will US inflation be above 3% in December 2026?",  "yes_price": 0.42, "no_price": 0.58},
-            {"ticker": "AI-AGI-2030", "title": "Will AGI be achieved by 2030?", "yes_price": 0.15, "no_price": 0.85},
-            {"ticker": "TESLA-500", "title": "Will Tesla stock reach $500 in 2026?", "yes_price": 0.33, "no_price": 0.67},
-            {"ticker": "GOP-HOUSE-2026", "title": "Will Republicans control the House after 2026 midterms?", "yes_price": 0.52, "no_price": 0.48},
-            {"ticker": "SPACEX-MARS", "title": "Will SpaceX land humans on Mars by 2030?", "yes_price": 0.12, "no_price": 0.88},
-            {"ticker": "OSCAR-BEST-PIC", "title": "Will a streaming movie win Best Picture at 2026 Oscars?", "yes_price": 0.65, "no_price": 0.35},
-            {"ticker": "NFL-MVP-MAHOMES", "title": "Will Patrick Mahomes win NFL MVP 2025-2026?", "yes_price": 0.22, "no_price": 0.78},
-            {"ticker": "TIKTOK-BAN", "title": "Will TikTok be banned in the US by end of 2026?", "yes_price": 0.38, "no_price": 0.62},
-            {"ticker": "APPLE-4T", "title": "Will Apple market cap reach $4 trillion in 2026?", "yes_price": 0.45, "no_price": 0.55},
-        ]
-
-        markets = []
-        for data in sample_data:
-            markets.append(KalshiMarket(
-                id=data["ticker"],
-                ticker=data["ticker"],
-                title=data["title"],
-                description="",
-                yes_price=data["yes_price"],
-                no_price=data["no_price"],
-                volume=0,
-                status="open",
-                url=f"https://kalshi.com/markets/{data['ticker']}",
-            ))
         return markets
 
     async def fetch_polymarket_markets(self) -> list[PolymarketMarket]:
