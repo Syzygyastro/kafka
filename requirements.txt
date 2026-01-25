@@ -23,7 +23,7 @@ anticaptchaofficial==1.0.54
 beautifulsoup4==4.12.3
 lxml==5.1.0
 selectolax==0.3.21
-parsel==1.9.0
+parsel==1.10.0
 
 # Utilities
 tenacity==8.2.3
