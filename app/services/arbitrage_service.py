@@ -20,7 +20,7 @@ from app.models.arbitrage import (
 class ArbitrageService:
     """Service for detecting arbitrage opportunities between Kalshi and Polymarket."""
 
-    KALSHI_BASE_URL = "https://api.elections.kalshi.com/trade-api/v2"
+    KALSHI_BASE_URL = "https://trading-api.kalshi.com/trade-api/v2"
     POLYMARKET_GAMMA_URL = "https://gamma-api.polymarket.com"
     POLYMARKET_CLOB_URL = "https://clob.polymarket.com"
 
